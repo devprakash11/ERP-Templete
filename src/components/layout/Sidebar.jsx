@@ -1,99 +1,137 @@
 import React from 'react'
-import { HiMenu, HiX } from 'react-icons/hi'
-import { LogOut, Sun, Moon, Shield, Users } from 'lucide-react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import {
+  BarChart3,
+  BookOpen,
+  Briefcase,
+  CalendarDays,
+  ChevronRight,
+  ClipboardCheck,
+  DollarSign,
+  FileText,
+  Gate,
+  Home,
+  Layers3,
+  Library,
+  LogOut,
+  Menu,
+  Package,
+  Settings,
+  ShieldCheck,
+  Truck,
+  User,
+  UserPlus,
+  Users,
+  X,
+} from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
 
-const Sidebar = ({ isOpen, onToggle, userRole }) => {
-  const navItems = [
-    { path: '/dashboard', icon: 'Home', label: 'Dashboard' },
-    { path: '/students', icon: 'Users', label: 'Students' },
-    { path: '/teachers', icon: 'User', label: 'Teachers' },
-    { path: '/staff', icon: 'Briefcase', label: 'Staff' },
-    { path: '/classes', icon: 'Layout', label: 'Classes' },
-    { path: '/sections', icon: 'Layers', label: 'Sections' },
-    { path: '/subjects', icon: 'BookOpen', label: 'Subjects' },
-    { path: '/timetable', icon: 'Calendar', label: 'Timetable' },
-    { path: '/attendance', icon: 'Clipboard', label: 'Attendance' },
-    { path: '/fees', icon: 'DollarSign', label: 'Fees' },
-    { path: '/admissions', icon: 'UserPlus', label: 'Admissions' },
-    { path: '/gatepass', icon: 'Gate', label: 'Gate Pass' },
-    { path: '/library', icon: 'Book', label: 'Library' },
-    { path: '/transport', icon: 'Truck', label: 'Transport' },
-    { path: '/inventory', icon: 'Box', label: 'Inventory' },
-    { path: '/payroll', icon: 'Users', label: 'Payroll' },
-    { path: '/reports', icon: 'BarChart', label: 'Reports' },
-    { path: '/settings', icon: 'Settings', label: 'Settings' },
-  ]
+const navItems = [
+  { path: '/dashboard', icon: Home, label: 'Dashboard' },
+  { path: '/students', icon: Users, label: 'Students' },
+  { path: '/teachers', icon: User, label: 'Teachers' },
+  { path: '/staff', icon: Briefcase, label: 'Staff' },
+  { path: '/classes', icon: Layers3, label: 'Classes' },
+  { path: '/sections', icon: Layers3, label: 'Sections' },
+  { path: '/subjects', icon: BookOpen, label: 'Subjects' },
+  { path: '/timetable', icon: CalendarDays, label: 'Timetable' },
+  { path: '/marks', icon: ClipboardCheck, label: 'Marks Entry' },
+  { path: '/report-cards', icon: FileText, label: 'Report Cards' },
+  { path: '/attendance', icon: ClipboardCheck, label: 'Attendance' },
+  { path: '/fees', icon: DollarSign, label: 'Fees' },
+  { path: '/admissions', icon: UserPlus, label: 'Admissions' },
+  { path: '/gatepass', icon: Gate, label: 'Gate Pass' },
+  { path: '/library', icon: Library, label: 'Library' },
+  { path: '/transport', icon: Truck, label: 'Transport' },
+  { path: '/inventory', icon: Package, label: 'Inventory' },
+  { path: '/payroll', icon: Users, label: 'Payroll' },
+  { path: '/reports', icon: BarChart3, label: 'Reports' },
+  { path: '/users', icon: ShieldCheck, label: 'Users' },
+  { path: '/settings', icon: Settings, label: 'Settings' },
+]
 
-  return (
+const Sidebar = ({ isOpen, onToggle }) => (
+  <>
+    {isOpen && (
+      <button
+        className="fixed inset-0 z-40 bg-black/40 md:hidden"
+        onClick={onToggle}
+        aria-label="Close navigation overlay"
+      />
+    )}
     <aside
-      className={`fixed left-0 top-0 h-full w-64 bg-navy text-white transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-navy text-white shadow-xl transition-transform duration-300 ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
     >
-      <div className="h-16 border-b border-border py-3">
-        <div className="flex items-center justify-between px-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <span className="text-lg font-semibold">School ERP</span>
-          </div>
-          <button
-            onClick={onToggle}
-            className="p-1 rounded hover:bg-primary/10 transition-colors"
-            aria-label="Close sidebar"
-          >
-            <HiX className="w-4 h-4" />
-          </button>
-        </div>
+      <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-5">
+        <NavLink to="/dashboard" onClick={() => window.innerWidth < 768 && onToggle()} className="flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/25">
+            <ShieldCheck className="h-5 w-5" />
+          </span>
+          <span className="text-lg font-bold tracking-tight">School ERP</span>
+        </NavLink>
+        <button onClick={onToggle} className="rounded-lg p-2 text-white/70 hover:bg-white/10 hover:text-white md:hidden" aria-label="Close sidebar">
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
-      <nav className="px-2 pt-2 space-y-1">
-        {navItems.map((item) => (
-          <button
-            key={item.path}
-            onClick={onToggle}
-            className={`w-full flex items-center rounded-md px-3 py-2 text-sm font-medium color-text-secondary hover:bg-primary/10 transition-colors hover:text-primary ${userRole === 'super_admin' ? '' : ''}`}
-            aria-label={item.label}
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+        {navItems.map(({ path, icon: Icon, label }) => (
+          <NavLink
+            key={path}
+            to={path}
+            onClick={() => window.innerWidth < 768 && onToggle()}
+            className={({ isActive }) =>
+              `group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
+                isActive
+                  ? 'bg-primary text-white shadow-md shadow-primary/20'
+                  : 'text-slate-300 hover:bg-white/10 hover:text-white'
+              }`
+            }
           >
-            <span className="w-5 h-5 flex-shrink-0">{item.icon}</span>
-            <span>{item.label}</span>
-          </button>
+            <Icon className="h-4.5 w-4.5 shrink-0" />
+            <span className="flex-1">{label}</span>
+            <ChevronRight className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-60" />
+          </NavLink>
         ))}
       </nav>
     </aside>
-  )
-}
+  </>
+)
 
-const Header = ({ onToggle, userRole, userName }) => {
+const Header = ({ onToggle }) => {
+  const navigate = useNavigate()
+  const { user, logout } = useAuth()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
   return (
-    <header
-      className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-border z-50 backdrop-blur-sm shadow-sm"
-    >
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6">
-        <button
-          onClick={onToggle}
-          className="md:hidden p-1 rounded hover:bg-primary/10 transition-colors"
-          aria-label="Open sidebar"
-        >
-          <HiMenu className="w-5 h-5" />
-        </button>
-
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-semibold">School ERP</h1>
+    <header className="fixed inset-x-0 top-0 z-30 h-16 border-b border-border bg-surface/95 backdrop-blur">
+      <div className="flex h-full items-center justify-between px-4 sm:px-6">
+        <div className="flex items-center gap-3">
+          <button onClick={onToggle} className="rounded-lg p-2 text-text-secondary hover:bg-bg hover:text-text-primary" aria-label="Toggle sidebar">
+            <Menu className="h-5 w-5" />
+          </button>
+          <div>
+            <p className="text-sm font-semibold text-text-primary">School ERP</p>
+            <p className="hidden text-xs text-text-secondary sm:block">School management system</p>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          {userName && (
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-surface">
-              <span className="text-sm font-medium">{userName}</span>
-            </div>
-          )}
-          <button
-            onClick={() => console.log('Logout clicked')}
-            className="hidden md:block px-4 py-1 rounded text-sm hover:bg-primary/10 transition-colors"
-          >
-            Logout
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden items-center gap-2 rounded-full bg-bg px-3 py-1.5 sm:flex">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
+              {(user?.email?.[0] || 'A').toUpperCase()}
+            </span>
+            <span className="max-w-40 truncate text-sm font-medium text-text-primary">{user?.email || 'Admin'}</span>
+          </div>
+          <button onClick={handleLogout} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-red-50 hover:text-danger">
+            <LogOut className="h-4 w-4" />
+            <span className="hidden sm:inline">Logout</span>
           </button>
         </div>
       </div>
@@ -101,95 +139,29 @@ const Header = ({ onToggle, userRole, userName }) => {
   )
 }
 
-const MobileNav = ({ isOpen, onToggle, userRole }) => {
-  const navItems = [
-    { path: '/dashboard', icon: 'Home', label: 'Dashboard' },
-    { path: '/students', icon: 'Users', label: 'Students' },
-    { path: '/fees', icon: 'DollarSign', label: 'Fees' },
-    { path: '/attendance', icon: 'Clipboard', label: 'Attendance' },
-    { path: '/gatepass', icon: 'Gate', label: 'Gate Pass' },
-    { path: '/library', icon: 'Book', label: 'Library' },
-    { path: '/transport', icon: 'Truck', label: 'Transport' },
-    { path: '/payroll', icon: 'Users', label: 'Payroll' },
-    { path: '/settings', icon: 'Settings', label: 'Settings' },
-  ]
+const MobileNav = ({ isOpen, onToggle }) => (
+  <div className={`fixed inset-0 z-40 md:hidden ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+    <button className="absolute inset-0 bg-black/40" onClick={onToggle} aria-label="Close mobile navigation" />
+  </div>
+)
 
-  return (
-    <nav
-      className={`fixed inset-0 bg-black/70 top-0 left-0 z-40 h-screen w-full transform translateX-full md:translateX-0 transition-transform duration-300 ${isOpen ? 'translateX-0' : ''}`}
-    >
-      <div className="h-16 bg-navy flex items-center justify-center px-4">
-        <h1 className="text-lg font-semibold text-white">School ERP</h1>
-        <button
-          onClick={onToggle}
-          className="absolute right-2 text-white"
-          aria-label="Close navigation"
-        >
-          <HiX className="w-5 h5" />
-        </button>
-      </div>
+const PageHeader = ({ title, subtitle }) => (
+  <div className="mb-6">
+    <h1 className="text-2xl font-bold tracking-tight text-text-primary">{title}</h1>
+    {subtitle && <p className="mt-1 text-sm text-text-secondary">{subtitle}</p>}
+  </div>
+)
 
-      <div className="p-6 space-y-4">
-        {navItems.map((item) => (
-          <button
-            key={item.path}
-            className="w-full flex items-center rounded-md px-3 py-2 text-base font-medium hover:text-primary transition-colors"
-            aria-label={item.label}
-          >
-            <span className="w-5 h-5 flex-shrink-0">{item.icon}</span>
-            <span>{item.label}</span>
-          </button>
-        ))}
-      </div>
-    </nav>
-  )
-}
-
-const PageHeader = ({ title, subtitle }) => {
-  return (
-    <div className="mb-6">
-      <h2 className="text-2xl font-bold text-text-primary mb-1">{title}</h2>
-      {subtitle && (
-        <p className="text-text-secondary">{subtitle}</p>
-      )}
-    </div>
-  )
-}
-
-const MainLayout = ({
-  children,
-  title,
-  subtitle,
-  showSidebar = true,
-  showHeader = true,
-}) => {
+const MainLayout = ({ children, title, subtitle, showSidebar = true, showHeader = true }) => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
-  const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
-  const [userRole, setUserRole] = React.useState('super_admin')
-  const [userName, setUserName] = React.useState('Admin')
 
   return (
-    <div className="min-h-screen">
-      {showHeader && (
-        <Header
-          onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-          userRole={userRole}
-          userName={userName}
-        />
-      )}
+    <div className="min-h-screen bg-bg">
+      {showHeader && <Header onToggle={() => setIsSidebarOpen((open) => !open)} />}
+      {showSidebar && <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen((open) => !open)} />}
 
-      {showSidebar && <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(!isSidebarOpen)} userRole={userRole} />}
-
-      <main className="ml-64 flex-1 p-6 transition-all">
-        {showHeader && isMobile && (
-          <MobileNav
-            isOpen={isMobileNavOpen}
-            onToggle={() => setIsMobileNavOpen(!isMobileNavOpen)}
-            userRole={userRole}
-          />
-        )}
-
-        <div className="w-full">
+      <main className={`min-h-screen pt-16 transition-all duration-300 ${showSidebar && isSidebarOpen ? 'md:pl-72' : ''}`}>
+        <div className="mx-auto w-full max-w-[1600px] p-4 sm:p-6 lg:p-8">
           {title && <PageHeader title={title} subtitle={subtitle} />}
           {children}
         </div>
