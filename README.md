@@ -1,16 +1,44 @@
-# React + Vite
+# School ERP
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A responsive School ERP dashboard built with React, Vite, React Router, Tailwind CSS, Recharts and Lucide React.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Requirements: Node.js 22+ and npm.
 
-## React Compiler
+```bash
+git clone https://github.com/devprakash11/ERP-Templete.git
+cd ERP-Templete
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Open the local URL shown by Vite, usually `http://localhost:5173`.
 
-## Expanding the Oxlint configuration
+For a production build:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm run build
+npm run preview
+```
+
+## Demo login
+
+- Email: `admin@school.com`
+- Password: `admin123`
+
+Authentication is currently local/demo authentication. It stores the signed-in demo user in `localStorage`; no backend or database is required to run the UI locally.
+
+## Included modules
+
+Dashboard, Students, Teachers, Staff, Classes, Sections, Subjects, Timetable, Marks Entry, Report Cards, Attendance, Fees, Gate Pass, Library, Transport, Inventory, Payroll, Reports, Users and Settings.
+
+## Recent fixes
+
+- Replaced the incompatible `createBrowserRouter` + `<Routes>` combination with `BrowserRouter` + declarative routes.
+- Added protected routing and a stable local authentication flow.
+- Fixed sidebar/header navigation and logout behavior.
+- Removed the unavailable `react-icons` dependency usage.
+- Added responsive desktop/mobile navigation behavior.
+- Enabled Tailwind CSS v4 through the Vite plugin.
+- Added a GitHub Actions production-build check.
