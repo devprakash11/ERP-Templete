@@ -1,14 +1,21 @@
-import React from 'react'
-import { useState } from 'react'
-import { Sidebar, Header, MainLayout, MobileNav, PageHeader } from '../components/layout'
-import { useContext } from 'react'
-import AuthContext from '../context/AuthContext'
+import { Navigate, useLocation } from 'react-router-dom'
+import { MainLayout } from '../components/layout'
+import { useAuth } from '../context/AuthContext'
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useContext(AuthContext)
+  const { isAuthenticated, isLoading } = useAuth()
+  const location = useLocation()
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-bg">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" aria-label="Loading" />
+      </div>
+    )
+  }
 
   if (!isAuthenticated) {
-    return <LoginPage />
+    return <Navigate to="/login" replace state={{ from: location.pathname }} />
   }
 
   return (
@@ -18,53 +25,6 @@ const ProtectedRoute = ({ children }) => {
     >
       {children}
     </MainLayout>
-  )
-}
-
-const LoginPage = () => {
-  const { login } = useContext(AuthContext)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    login(email, password)
-  }
-
-  return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg p-8 w-full max-w-md shadow-md">
-        <h2 className="text-2xl font-bold mb-4">School ERP Login</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-primary text-white rounded-md font-medium hover:bg-primary/90 transition-colors"
-          >
-            Login
-          </button>
-        </form>
-      </div>
-    </div>
   )
 }
 
