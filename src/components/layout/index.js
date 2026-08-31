@@ -1,5 +1,2 @@
-export { Sidebar, Header, MainLayout, MobileNav, PageHeader } from './Header'
-export default MainLayout
-export default MobileNav
-export default PageHeader
-export { Sidebar } from './Sidebar'
+export { Sidebar, Header, MainLayout, MobileNav, PageHeader } from './Sidebar'
+export { default } from './Sidebar'
