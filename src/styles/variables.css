@@ -1,13 +1,16 @@
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
+  /* Professional Blue ERP Theme */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
 
   --navy: #0f172a;
+  --navy-light: #1e293b;
 
   --success: #16a34a;
-  --warning: #d97706;
+  --warning: #f59e0b;
   --danger: #dc2626;
-  --info: #0284c7;
+  --info: #0ea5e9;
 
   --bg: #f8fafc;
   --surface: #ffffff;
