@@ -1,19 +1,24 @@
 import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from '../../common'
+import { Button } from '../../../components/common/Button'
 
 export const ReportCardsPage = () => {
-  const navigate = useNavigate()
+  const students = [
+    { name: 'John Doe', className: 'Grade 10', grade: 'A', gpa: '3.8' },
+    { name: 'Jane Smith', className: 'Grade 10', grade: 'A-', gpa: '3.5' },
+    { name: 'Michael Brown', className: 'Grade 9', grade: 'B+', gpa: '3.2' },
+  ]
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm">
-      <h2 className="text-2xl font-bold text-text-primary">Report Cards</h2>
+    <div className="rounded-lg bg-white p-6 shadow-sm">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-text-primary">Report Cards</h2>
+        <p className="mt-1 text-sm text-gray-500">Review student academic performance and report cards.</p>
+      </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full bg-white rounded-lg shadow-sm">
+      <div className="overflow-x-auto rounded-lg border border-border">
+        <table className="w-full min-w-[640px] bg-white">
           <thead>
-            <tr className="border-b border-border">
+            <tr className="border-b border-border bg-gray-50">
               <th className="p-3 text-left text-xs font-medium text-text-secondary">Student</th>
               <th className="p-3 text-left text-xs font-medium text-text-secondary">Class</th>
               <th className="p-3 text-left text-xs font-medium text-text-secondary">Grade</th>
@@ -22,42 +27,24 @@ export const ReportCardsPage = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">John Doe</td>
-              <td className="p-3 text-sm">Grade 10</td>
-              <td className="p-3 text-sm">A</td>
-              <td className="p-3 text-sm">3.8</td>
-              <td className="p-3">
-                <Button size="sm" variant="outline" onClick={() => console.log('View')}>
-                  View
-                </Button>
-              </td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">Jane Smith</td>
-              <td className="p-3 text-sm">Grade 10</td>
-              <td className="p-3 text-sm">A-</td>
-              <td className="p-3 text-sm">3.5</td>
-              <td className="p-3">
-                <Button size="sm" variant="outline" onClick={() => console.log('View')}>
-                  View
-                </Button>
-              </td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">Michael Brown</td>
-              <td className="p-3 text-sm">Grade 9</td>
-              <td className="p-3 text-sm">B+</td>
-              <td className="p-3 text-sm">3.2</td>
-              <td className="p-3">
-                <Button size="sm" variant="outline" onClick={() => console.log('View')}>
-                  View
-                </Button>
-              </td>
-            </tr>
+            {students.map((student) => (
+              <tr key={student.name} className="border-b border-border last:border-b-0 hover:bg-gray-50">
+                <td className="p-3 text-sm font-medium text-text-primary">{student.name}</td>
+                <td className="p-3 text-sm text-text-secondary">{student.className}</td>
+                <td className="p-3 text-sm text-text-secondary">{student.grade}</td>
+                <td className="p-3 text-sm text-text-secondary">{student.gpa}</td>
+                <td className="p-3">
+                  <Button size="sm" variant="outline" onClick={() => console.log(`View report for ${student.name}`)}>
+                    View
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
   )
 }
+
+export default ReportCardsPage
