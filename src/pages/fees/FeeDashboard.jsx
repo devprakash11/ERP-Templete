@@ -1,5 +1,6 @@
 import React from 'react'
-import { Card, StatCard } from '../../components/dashboard'
+import Card from '../../components/common/Card'
+import { StatCard } from '../../components/dashboard/StatCard'
 import { Button } from '../../components/common/Button'
 
 export const FeeDashboard = () => {
@@ -32,18 +33,13 @@ export const FeeDashboard = () => {
         </div>
         <div className="space-y-3">
           {pendingFees.map((fee) => (
-            <div
-              key={fee.student}
-              className={`rounded-md border p-3 ${fee.status === 'Overdue' ? 'border-red-200 bg-red-100 text-red-600' : 'border-yellow-200 bg-yellow-50'}`}
-            >
+            <div key={fee.student} className={`rounded-md border p-3 ${fee.status === 'Overdue' ? 'border-red-200 bg-red-100 text-red-600' : 'border-yellow-200 bg-yellow-50'}`}>
               <div className="flex items-start justify-between gap-3">
                 <span className="font-medium">{fee.student}</span>
                 <span className="text-sm text-gray-500">{fee.dueDate}</span>
               </div>
               <p className="text-lg font-bold">₹{fee.amount.toLocaleString('en-IN')}</p>
-              <span className={`text-sm font-medium ${fee.status === 'Overdue' ? 'text-red-600' : 'text-yellow-600'}`}>
-                {fee.status}
-              </span>
+              <span className={`text-sm font-medium ${fee.status === 'Overdue' ? 'text-red-600' : 'text-yellow-600'}`}>{fee.status}</span>
             </div>
           ))}
         </div>
