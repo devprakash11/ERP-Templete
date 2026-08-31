@@ -1,13 +1,8 @@
 import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Card, StatCard } from '../../components/dashboard'
-import { Button } from '../../common'
+import { Button } from '../../components/common/Button'
 
 export const FeeDashboard = () => {
-  const [feeStructure, setFeeStructure] = useState([])
-  const navigate = useNavigate()
-
   const pendingFees = [
     { student: 'John Doe', amount: 5200, dueDate: '2024-01-15', status: 'Pending' },
     { student: 'Jane Smith', amount: 4800, dueDate: '2024-01-10', status: 'Overdue' },
@@ -20,8 +15,8 @@ export const FeeDashboard = () => {
   ]
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div className="w-full rounded-lg bg-white p-4 shadow-sm sm:p-6">
+      <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <StatCard title="Total Collected" count="$42,700" trend="+12.5%" />
         </Card>
@@ -30,19 +25,22 @@ export const FeeDashboard = () => {
         </Card>
       </div>
 
-      <Card>
-        <h3 className="text-xl font-bold text-text-primary mb-4">Pending Fees</h3>
+      <Card className="mb-4">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h3 className="text-xl font-bold text-text-primary">Pending Fees</h3>
+          <Button variant="outline" onClick={() => console.log('View pending fees')}>View All</Button>
+        </div>
         <div className="space-y-3">
           {pendingFees.map((fee) => (
             <div
               key={fee.student}
-              className={`p-3 rounded-md ${fee.status === 'Overdue' ? 'bg-red-100 text-red-600' : 'bg-yellow-50'} border ${fee.status === 'Overdue' ? 'border-red-200' : 'border-yellow-200'}`}
+              className={`rounded-md border p-3 ${fee.status === 'Overdue' ? 'border-red-200 bg-red-100 text-red-600' : 'border-yellow-200 bg-yellow-50'}`}
             >
-              <div className="flex items-between justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <span className="font-medium">{fee.student}</span>
                 <span className="text-sm text-gray-500">{fee.dueDate}</span>
               </div>
-              <p className="font-bold text-lg">{fee.amount}</p>
+              <p className="text-lg font-bold">₹{fee.amount.toLocaleString('en-IN')}</p>
               <span className={`text-sm font-medium ${fee.status === 'Overdue' ? 'text-red-600' : 'text-yellow-600'}`}>
                 {fee.status}
               </span>
@@ -52,15 +50,15 @@ export const FeeDashboard = () => {
       </Card>
 
       <Card>
-        <h3 className="text-xl font-bold text-text-primary mb-4">Recently Collected</h3>
+        <h3 className="mb-4 text-xl font-bold text-text-primary">Recently Collected</h3>
         <div className="space-y-3">
           {collectedFees.map((fee) => (
-            <div key={fee.student} className="p-3 rounded-md bg-primary/5 border border-primary/10">
-              <div className="flex items-between justify-between">
+            <div key={fee.student} className="rounded-md border border-primary/10 bg-primary/5 p-3">
+              <div className="flex items-start justify-between gap-3">
                 <span className="font-medium">{fee.student}</span>
                 <span className="text-sm text-gray-500">{fee.date}</span>
               </div>
-              <p className="font-bold text-primary">{fee.amount}</p>
+              <p className="font-bold text-primary">₹{fee.amount.toLocaleString('en-IN')}</p>
               <p className="text-xs text-gray-500">Receipt: {fee.receipt}</p>
             </div>
           ))}
@@ -69,3 +67,5 @@ export const FeeDashboard = () => {
     </div>
   )
 }
+
+export default FeeDashboard
