@@ -1,53 +1,91 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
-export const Login = () => {
+const Login = () => {
   const { login } = useAuth()
   const navigate = useNavigate()
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    login(email, password)
-    navigate('/dashboard')
+  const onSubmit = async (event) => {
+    event.preventDefault()
+    setError('')
+    setIsSubmitting(true)
+
+    const result = await login(email.trim(), password)
+    if (result.success) {
+      navigate('/dashboard', { replace: true })
+    } else {
+      setError(result.message || 'Invalid email or password')
+    }
+
+    setIsSubmitting(false)
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-primary/5">
-      <div className="bg-white rounded-lg p-8 w-full max-w-md shadow-md">
-        <h2 className="text-2xl font-bold text-primary mb-4 text-center">School ERP Login</h2>
-        <form onSubmit={onSubmit} className="space-y-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary/10 via-bg to-bg p-4">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-6 shadow-xl sm:p-8">
+        <div className="mb-8 text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-lg shadow-primary/25">
+            <span className="text-lg font-bold">S</span>
+          </div>
+          <h1 className="text-2xl font-bold text-text-primary">Welcome back</h1>
+          <p className="mt-1 text-sm text-text-secondary">Sign in to your School ERP account</p>
+        </div>
+
+        <form onSubmit={onSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-text-primary">Email</label>
             <input
+              id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="admin@school.com"
+              autoComplete="email"
               required
-              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
             />
           </div>
+
           <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
+            <label htmlFor="password" className="mb-2 block text-sm font-medium text-text-primary">Password</label>
             <input
+              id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Enter your password"
+              autoComplete="current-password"
               required
-              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
             />
           </div>
+
+          {error && (
+            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-danger" role="alert">
+              {error}
+            </div>
+          )}
+
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-primary text-white rounded-md font-medium hover:bg-primary/90 transition-colors"
+            disabled={isSubmitting}
+            className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Login
+            {isSubmitting ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
+
+        <div className="mt-6 rounded-xl bg-bg p-4 text-center text-xs text-text-secondary">
+          Demo credentials: <span className="font-semibold text-text-primary">admin@school.com</span> / <span className="font-semibold text-text-primary">admin123</span>
+        </div>
       </div>
     </div>
   )
 }
+
+export default Login
