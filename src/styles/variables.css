@@ -1,9 +1,10 @@
 :root {
-  /* Professional Blue ERP Theme — minimal white */
+  /* Professional Blue ERP Theme — no pure white */
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
   --primary-light: #dbeafe;
 
+  /* Dark surfaces use light foregrounds. */
   --navy: #0f172a;
   --navy-light: #1e293b;
 
@@ -12,13 +13,16 @@
   --danger: #dc2626;
   --info: #0ea5e9;
 
-  /* Keep the application canvas tinted; reserve white for small elevated surfaces. */
+  /* Light surfaces use dark foregrounds. No pure white is used. */
   --bg: #f1f5f9;
-  --surface: #f8fafc;
+  --surface: #e2e8f0;
+  --surface-raised: #cbd5e1;
 
   --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --border: #cbd5e1;
+  --text-secondary: #475569;
+  --text-on-dark: #f1f5f9;
+  --text-on-primary: #f8fafc;
+  --border: #94a3b8;
 
   --radius-sm: 8px;
   --radius-md: 10px;
@@ -37,8 +41,9 @@
   :root {
     --bg: #0f172a;
     --surface: #1e293b;
+    --surface-raised: #334155;
     --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --border: #334155;
+    --text-secondary: #cbd5e1;
+    --border: #475569;
   }
 }
