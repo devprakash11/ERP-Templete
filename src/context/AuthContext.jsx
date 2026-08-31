@@ -1,45 +1,55 @@
-import React, { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-const AuthContext = createContext()
+const AuthContext = createContext(null)
+const AUTH_STORAGE_KEY = 'school_erp_auth'
+
+const demoUser = {
+  email: 'admin@school.com',
+  password: 'admin123',
+  role: 'super_admin',
+}
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Mock authentication
-  const users = [
-    {
-      email: 'admin@school.com',
-      password: 'admin123',
-      role: 'super_admin'
+  useEffect(() => {
+    try {
+      const savedUser = localStorage.getItem(AUTH_STORAGE_KEY)
+      setUser(savedUser ? JSON.parse(savedUser) : null)
+    } catch {
+      localStorage.removeItem(AUTH_STORAGE_KEY)
+      setUser(null)
+    } finally {
+      setIsLoading(false)
     }
-  ]
+  }, [])
 
   const login = async (email, password) => {
-    const user = users.find(
-      (u) => u.email === email && u.password === password
-    )
-    if (user) {
-      setIsAuthenticated(true)
-      setUser(user)
-    } else {
-      alert('Invalid credentials')
+    if (email === demoUser.email && password === demoUser.password) {
+      const authenticatedUser = { email: demoUser.email, role: demoUser.role }
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authenticatedUser))
+      setUser(authenticatedUser)
+      return { success: true }
     }
+
+    return { success: false, message: 'Invalid email or password' }
   }
 
   const logout = () => {
-    setIsAuthenticated(false)
+    localStorage.removeItem(AUTH_STORAGE_KEY)
     setUser(null)
-  }
-
-  if (isLoading) {
-    setIsLoading(false)
   }
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, login, logout, isLoading }}
+      value={{
+        isAuthenticated: Boolean(user),
+        user,
+        login,
+        logout,
+        isLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>
