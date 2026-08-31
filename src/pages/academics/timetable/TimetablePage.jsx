@@ -1,72 +1,47 @@
 import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from '../../common'
 
 export const TimetablePage = () => {
-  const [periods, setPeriods] = useState([])
-  const navigate = useNavigate()
+  const timetable = [
+    ['Monday', 'Math', 'Physics', 'Chemistry', 'English', 'Physical Ed'],
+    ['Tuesday', 'English', 'Math', 'Physics', 'Chemistry', 'Biology'],
+    ['Wednesday', 'Chemistry', 'English', 'Math', 'Physics', 'Computer Sci'],
+    ['Thursday', 'Physical Ed', 'Biology', 'English', 'Math', 'Physics'],
+    ['Friday', 'Math', 'Chemistry', 'Biology', 'English', 'Physical Ed'],
+  ]
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm">
-      <h2 className="text-2xl font-bold text-text-primary">Timetable Management</h2>
+    <div className="w-full rounded-lg bg-white p-4 shadow-sm sm:p-6">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-text-primary">Timetable Management</h2>
+        <p className="mt-1 text-sm text-gray-500">View the weekly class timetable and scheduled periods.</p>
+      </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full bg-white rounded-lg shadow-sm">
+      <div className="overflow-x-auto rounded-lg border border-border">
+        <table className="w-full min-w-[720px] bg-white">
           <thead>
-            <tr className="border-b border-border">
-              <th className="p-3 text-left text-xs font-medium text-text-secondary">Day</th>
-              <th className="p-3 text-left text-xs font-medium text-text-secondary">Period 1</th>
-              <th className="p-3 text-left text-xs font-medium text-text-secondary">Period 2</th>
-              <th className="p-3 text-left text-xs font-medium text-text-secondary">Period 3</th>
-              <th className="p-3 text-left text-xs font-medium text-text-secondary">Period 4</th>
-              <th className="p-3 text-left text-xs font-medium text-text-secondary">Period 5</th>
+            <tr className="border-b border-border bg-gray-50">
+              {['Day', 'Period 1', 'Period 2', 'Period 3', 'Period 4', 'Period 5'].map((heading) => (
+                <th key={heading} className="p-3 text-left text-xs font-medium text-text-secondary">
+                  {heading}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">Monday</td>
-              <td className="p-3 text-sm">Math</td>
-              <td className="p-3 text-sm">Physics</td>
-              <td className="p-3 text-sm">Chemistry</td>
-              <td className="p-3 text-sm">English</td>
-              <td className="p-3 text-sm">Physical Ed</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">Tuesday</td>
-              <td className="p-3 text-sm">English</td>
-              <td className="p-3 text-sm">Math</td>
-              <td className="p-3 text-sm">Physics</td>
-              <td className="p-3 text-sm">Chemistry</td>
-              <td className="p-3 text-sm">Biology</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">Wednesday</td>
-              <td className="p-3 text-sm">Chemistry</td>
-              <td className="p-3 text-sm">English</td>
-              <td className="p-3 text-sm">Math</td>
-              <td className="p-3 text-sm">Physics</td>
-              <td className="p-3 text-sm">Computer Sci</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">Thursday</td>
-              <td className="p-3 text-sm">Physical Ed</td>
-              <td className="p-3 text-sm">Biology</td>
-              <td className="p-3 text-sm">English</td>
-              <td className="p-3 text-sm">Math</td>
-              <td className="p-3 text-sm">Physics</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="p-3 text-sm">Friday</td>
-              <td className="p-3 text-sm">Math</td>
-              <td className="p-3 text-sm">Chemistry</td>
-              <td className="p-3 text-sm">Biology</td>
-              <td className="p-3 text-sm">English</td>
-              <td className="p-3 text-sm">Physical Ed</td>
-            </tr>
+            {timetable.map((row) => (
+              <tr key={row[0]} className="border-b border-border last:border-b-0 hover:bg-gray-50">
+                {row.map((value, index) => (
+                  <td key={`${row[0]}-${index}`} className={`p-3 text-sm ${index === 0 ? 'font-medium text-text-primary' : 'text-text-secondary'}`}>
+                    {value}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
   )
 }
+
+export default TimetablePage
