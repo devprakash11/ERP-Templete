@@ -1,5 +1,5 @@
 :root {
-  /* Professional Blue ERP Theme */
+  /* Professional Blue ERP Theme — minimal white */
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
   --primary-light: #dbeafe;
@@ -12,12 +12,13 @@
   --danger: #dc2626;
   --info: #0ea5e9;
 
-  --bg: #f8fafc;
-  --surface: #ffffff;
+  /* Keep the application canvas tinted; reserve white for small elevated surfaces. */
+  --bg: #f1f5f9;
+  --surface: #f8fafc;
 
   --text-primary: #0f172a;
   --text-secondary: #64748b;
-  --border: #e2e8f0;
+  --border: #cbd5e1;
 
   --radius-sm: 8px;
   --radius-md: 10px;
