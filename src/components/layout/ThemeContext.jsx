@@ -1,5 +1,4 @@
 import React from 'react'
-import { Sun, Moon } from 'lucide-react'
 
 const ThemeContext = React.createContext({
   toggleTheme: () => {},

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '../common/Button'
 
 const studentSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -13,14 +14,22 @@ const studentSchema = z.object({
   address: z.string().optional(),
 })
 
-export const StudentForm = ({ onSubmit, isEdit = false, studentData = null }) => {
+export const StudentForm = ({ onSubmit, isEdit = false, initialData = null }) => {
   const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: initialData || {},
+  })
+
+  useEffect(() => {
+    if (initialData) {
+      reset(initialData)
+    }
+  }, [initialData, reset])
 
   const onSubmitHandler = (data) => {
     const validated = studentSchema.safeParse(data)
@@ -44,14 +53,14 @@ export const StudentForm = ({ onSubmit, isEdit = false, studentData = null }) =>
         {isEdit ? 'Edit Student' : 'Add Student'}
       </h2>
       <form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
-        <div className="grid grid-cols-1 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block text-sm font-medium mb-1">Full Name</label>
             <input
               {...register('name')}
-              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {${
-                errors.name && 'border-red-500'
-              }}"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary ${
+                errors.name ? 'border-red-500' : 'border-border'
+              }`}
               required
             />
             {errors.name && (
@@ -63,9 +72,9 @@ export const StudentForm = ({ onSubmit, isEdit = false, studentData = null }) =>
             <input
               {...register('email')}
               type="email"
-              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary {${
-                errors.email && 'border-red-500'
-              }}"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary ${
+                errors.email ? 'border-red-500' : 'border-border'
+              }`}
               required
             />
             {errors.email && (
@@ -74,7 +83,7 @@ export const StudentForm = ({ onSubmit, isEdit = false, studentData = null }) =>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block text-sm font-medium mb-1">Class</label>
             <input
@@ -93,7 +102,7 @@ export const StudentForm = ({ onSubmit, isEdit = false, studentData = null }) =>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block text-sm font-medium mb-1">Admission Date</label>
             <input
@@ -118,12 +127,11 @@ export const StudentForm = ({ onSubmit, isEdit = false, studentData = null }) =>
             {...register('address')}
             rows={3}
             className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            rowsMax={10}
           ></textarea>
         </div>
 
-        <div className="mt-6 flex justify-end gap-3">
-          <Button type="button" onClick={() => navigate('/students')} className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors">
+        <div className="mt-6 flex flex-col-reverse sm:flex-row justify-end gap-3">
+          <Button type="button" variant="outline" onClick={() => navigate('/students')}>
             Cancel
           </Button>
           <button type="submit" className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors">

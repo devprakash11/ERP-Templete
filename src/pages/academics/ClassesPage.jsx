@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/common/Button'
 
 export const ClassesPage = () => {
-  const [classes, setClasses] = useState([])
+  const [classes] = useState([])
   const navigate = useNavigate()
 
   const onAddClass = () => {
