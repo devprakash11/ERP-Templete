@@ -1,71 +1,409 @@
-:root {
-  --primary: #0f766e;
-  --primary-hover: #115e59;
-  --primary-light: #ccfbf1;
+/* =========================================================
+   SCHOOL ERP — SHARED COMPONENT + PAGE ALIGNMENT
+   ========================================================= */
 
-  --navy: #102a2a;
-  --navy-light: #173b3a;
-
-  --bg: #f4f7f5;
-  --surface: #ffffff;
-  --surface-muted: #eaf0ec;
-  --surface-raised: #dfe8e2;
-
-  --text-primary: #17211d;
-  --text-secondary: #5f6d66;
-  --text-muted: #7b8780;
-  --text-on-primary: #f8fafc;
-
-  --border: #d5ded8;
-  --border-strong: #aebbb3;
-
-  --success: #15803d;
-  --warning: #c77700;
-  --danger: #b83a3a;
+/* -----------------------------
+   App shell
+   ----------------------------- */
+.erp-sidebar {
+  width: var(--sidebar-width);
+  background: #123f35;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 8px 0 24px rgba(24, 33, 29, 0.08);
+  isolation: isolate;
 }
 
-* {
-  box-sizing: border-box;
+.erp-sidebar-brand {
+  background: #0f352d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-html {
-  scroll-behavior: smooth;
+.erp-sidebar-icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  background: var(--color-primary);
+  box-shadow: 0 5px 14px rgba(8, 127, 91, 0.25);
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  background: var(--bg);
-  color: var(--text-primary);
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
+.erp-nav-item {
+  min-height: 42px;
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid transparent;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+.erp-nav-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.075);
 }
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
+.erp-nav-item-active {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 3px 0 0 var(--color-primary);
 }
 
-img {
-  max-width: 100%;
+.erp-header {
+  background: rgba(251, 252, 249, 0.96);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(14px);
+}
+
+.erp-header-user {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+}
+
+/* -----------------------------
+   Shared cards
+   ----------------------------- */
+.erp-card {
+  width: 100%;
+  min-width: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+}
+
+.erp-card > *:first-child {
+  min-width: 0;
+}
+
+.erp-card-body {
+  padding: 20px;
+}
+
+/* -----------------------------
+   Buttons
+   ----------------------------- */
+.erp-button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.erp-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.erp-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.erp-button-primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(8, 127, 91, 0.18);
+}
+
+.erp-button-primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.erp-button-secondary {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.erp-button-success {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.erp-button-warning {
+  background: var(--color-warning);
+  color: #fff;
+}
+
+.erp-button-danger {
+  background: var(--color-danger);
+  color: #fff;
+}
+
+.erp-button-outline {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.erp-button-outline:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-dark);
+}
+
+/* -----------------------------
+   Forms
+   ----------------------------- */
+.erp-input,
+.erp-select {
   display: block;
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  padding: 0 12px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
 }
 
-::selection {
-  background: var(--primary-light);
-  color: var(--primary);
+.erp-input:focus,
+.erp-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(8, 127, 91, 0.10);
+}
+
+.erp-input:disabled,
+.erp-select:disabled {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-muted);
+}
+
+.erp-select {
+  appearance: auto;
+  cursor: pointer;
+}
+
+/* -----------------------------
+   Stats
+   ----------------------------- */
+.erp-stat-card {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 132px;
+  padding: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.erp-stat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--color-primary);
+}
+
+.erp-stat-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-border-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.erp-stat-label {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.erp-stat-value {
+  margin-top: 7px;
+  color: var(--color-heading);
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.erp-stat-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* -----------------------------
+   Progress
+   ----------------------------- */
+.erp-progress-track {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+  border-radius: 999px;
+}
+
+.erp-progress-bar {
+  height: 100%;
+  min-width: 2px;
+  border-radius: inherit;
+  transition: width 300ms ease;
+}
+
+.erp-progress-success { background: var(--color-success); }
+.erp-progress-danger { background: var(--color-danger); }
+
+/* -----------------------------
+   Badges
+   ----------------------------- */
+.erp-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.erp-badge-primary { background: var(--color-primary-light); color: var(--color-primary-dark); }
+.erp-badge-neutral { background: var(--color-bg-secondary); color: var(--color-text-secondary); }
+.erp-badge-success { background: var(--color-success-bg); color: var(--color-success); }
+.erp-badge-warning { background: var(--color-warning-bg); color: var(--color-warning); }
+.erp-badge-danger { background: var(--color-danger-bg); color: var(--color-danger); }
+.erp-badge-info { background: var(--color-info-bg); color: var(--color-info); }
+
+/* -----------------------------
+   Tables
+   ----------------------------- */
+.erp-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.erp-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  background: var(--color-surface);
+}
+
+.erp-table th {
+  padding: 12px 16px;
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.erp-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-primary);
+  vertical-align: middle;
+}
+
+.erp-table tbody tr:last-child td { border-bottom: 0; }
+.erp-table tbody tr:hover { background: var(--color-primary-soft); }
+
+/* -----------------------------
+   Page consistency
+   ----------------------------- */
+.erp-dashboard,
+.erp-page,
+.erp-list-page,
+.erp-form-page {
+  width: 100%;
+  min-width: 0;
+}
+
+.erp-page-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.erp-page-section {
+  width: 100%;
+  min-width: 0;
+}
+
+.erp-page-title {
+  color: var(--color-heading);
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.erp-page-subtitle {
+  margin-top: 5px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* Prevent accidental horizontal page overflow from wide cards/tables. */
+main,
+main > div,
+main > div > * {
+  min-width: 0;
+}
+
+/* -----------------------------
+   Responsive shell
+   ----------------------------- */
+@media (max-width: 767px) {
+  .erp-sidebar {
+    width: min(86vw, var(--sidebar-width));
+  }
+
+  .erp-card {
+    border-radius: var(--radius-md);
+  }
+
+  .erp-stat-card {
+    min-height: 118px;
+    padding: 16px;
+  }
+
+  .erp-card-body {
+    padding: 16px;
+  }
+
+  .erp-page-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .erp-table {
+    min-width: 620px;
+  }
+}
+
+@media (max-width: 480px) {
+  .erp-button {
+    min-height: 38px;
+  }
+
+  .erp-stat-card {
+    padding: 14px;
+  }
 }
