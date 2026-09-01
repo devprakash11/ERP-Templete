@@ -39,10 +39,10 @@ const Sidebar = ({ isOpen, onToggle }) => (
     />
 
     <aside
-      className={`erp-sidebar fixed inset-y-0 left-0 z-50 flex flex-col text-white transition-transform duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      className={`erp-sidebar fixed inset-y-0 left-0 z-50 flex flex-col text-white transition-[width,transform] duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0 md:w-[256px]' : '-translate-x-full md:w-[76px]'}`}
       aria-label="Primary navigation"
     >
-      <div className="erp-sidebar-brand flex h-[68px] shrink-0 items-center justify-between px-5">
+      <div className="erp-sidebar-brand flex h-[68px] shrink-0 items-center justify-between px-4 md:px-5">
         <NavLink
           to="/dashboard"
           onClick={() => window.innerWidth < 768 && onToggle()}
@@ -51,7 +51,9 @@ const Sidebar = ({ isOpen, onToggle }) => (
           <span className="erp-sidebar-icon flex items-center justify-center rounded-xl text-white">
             <ShieldCheck className="h-5 w-5" />
           </span>
-          <span className="truncate text-lg font-bold tracking-tight text-white">School ERP</span>
+          <span className={`truncate text-lg font-bold tracking-tight text-white transition-opacity ${isOpen ? 'opacity-100' : 'md:hidden md:opacity-0'}`}>
+            School ERP
+          </span>
         </NavLink>
 
         <button
@@ -70,11 +72,12 @@ const Sidebar = ({ isOpen, onToggle }) => (
               key={path}
               to={path}
               onClick={() => window.innerWidth < 768 && onToggle()}
-              className={({ isActive }) => `group erp-nav-item flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${isActive ? 'erp-nav-item-active' : ''}`}
+              title={!isOpen ? label : undefined}
+              className={({ isActive }) => `group erp-nav-item flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${!isOpen ? 'md:justify-center md:px-2' : ''} ${isActive ? 'erp-nav-item-active' : ''}`}
             >
               <Icon className="h-5 w-5 shrink-0" />
-              <span className="min-w-0 flex-1 truncate">{label}</span>
-              <ChevronRight className="h-4 w-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-60" />
+              <span className={`min-w-0 flex-1 truncate ${isOpen ? '' : 'md:hidden'}`}>{label}</span>
+              <ChevronRight className={`h-4 w-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-60 ${isOpen ? '' : 'md:hidden'}`} />
             </NavLink>
           ))}
         </div>
@@ -83,7 +86,7 @@ const Sidebar = ({ isOpen, onToggle }) => (
   </>
 )
 
-const Header = ({ onToggle }) => {
+const Header = ({ onToggle, isSidebarOpen }) => {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
 
@@ -93,7 +96,7 @@ const Header = ({ onToggle }) => {
   }
 
   return (
-    <header className="erp-header fixed inset-x-0 top-0 z-30 h-[68px] md:left-[256px]">
+    <header className={`erp-header fixed inset-x-0 top-0 z-30 h-[68px] transition-[left] duration-300 ${isSidebarOpen ? 'md:left-[256px]' : 'md:left-[76px]'}`}>
       <div className="flex h-full items-center justify-between gap-4 px-4 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <button
@@ -154,10 +157,10 @@ const MainLayout = ({ children, title, subtitle, showSidebar = true, showHeader 
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-bg">
-      {showHeader && <Header onToggle={() => setIsSidebarOpen((open) => !open)} />}
+      {showHeader && <Header onToggle={() => setIsSidebarOpen((open) => !open)} isSidebarOpen={isSidebarOpen} />}
       {showSidebar && <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen((open) => !open)} />}
 
-      <main className={`min-h-screen pt-[68px] ${showSidebar ? 'md:pl-[256px]' : ''}`}>
+      <main className={`min-h-screen pt-[68px] transition-[padding] duration-300 ${showSidebar ? (isSidebarOpen ? 'md:pl-[256px]' : 'md:pl-[76px]') : ''}`}>
         <div className="mx-auto w-full max-w-[1600px] p-4 sm:p-6 lg:p-8">
           {title && <PageHeader title={title} subtitle={subtitle} />}
           {children}
