@@ -39,7 +39,7 @@ const Sidebar = ({ isOpen, onToggle }) => (
     />
 
     <aside
-      className={`erp-sidebar fixed inset-y-0 left-0 z-50 flex flex-col text-white transition-[width,transform] duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0 md:w-[256px]' : '-translate-x-full md:w-[76px]'}`}
+      className={`erp-sidebar fixed inset-y-0 left-0 z-50 flex w-[min(86vw,256px)] flex-col text-white transition-transform duration-300 md:w-[256px] md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       aria-label="Primary navigation"
     >
       <div className="erp-sidebar-brand flex h-[68px] shrink-0 items-center justify-between px-4 md:px-5">
@@ -51,7 +51,7 @@ const Sidebar = ({ isOpen, onToggle }) => (
           <span className="erp-sidebar-icon flex items-center justify-center rounded-xl text-white">
             <ShieldCheck className="h-5 w-5" />
           </span>
-          <span className={`truncate text-lg font-bold tracking-tight text-white transition-opacity ${isOpen ? 'opacity-100' : 'md:hidden md:opacity-0'}`}>
+          <span className="truncate text-lg font-bold tracking-tight text-white">
             School ERP
           </span>
         </NavLink>
@@ -72,12 +72,11 @@ const Sidebar = ({ isOpen, onToggle }) => (
               key={path}
               to={path}
               onClick={() => window.innerWidth < 768 && onToggle()}
-              title={!isOpen ? label : undefined}
-              className={({ isActive }) => `group erp-nav-item flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${!isOpen ? 'md:justify-center md:px-2' : ''} ${isActive ? 'erp-nav-item-active' : ''}`}
+              className={({ isActive }) => `group erp-nav-item flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${isActive ? 'erp-nav-item-active' : ''}`}
             >
               <Icon className="h-5 w-5 shrink-0" />
-              <span className={`min-w-0 flex-1 truncate ${isOpen ? '' : 'md:hidden'}`}>{label}</span>
-              <ChevronRight className={`h-4 w-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-60 ${isOpen ? '' : 'md:hidden'}`} />
+              <span className="min-w-0 flex-1 truncate">{label}</span>
+              <ChevronRight className="h-4 w-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-60" />
             </NavLink>
           ))}
         </div>
@@ -86,7 +85,7 @@ const Sidebar = ({ isOpen, onToggle }) => (
   </>
 )
 
-const Header = ({ onToggle, isSidebarOpen }) => {
+const Header = ({ onToggle }) => {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
 
@@ -96,13 +95,13 @@ const Header = ({ onToggle, isSidebarOpen }) => {
   }
 
   return (
-    <header className={`erp-header fixed inset-x-0 top-0 z-30 h-[68px] transition-[left] duration-300 ${isSidebarOpen ? 'md:left-[256px]' : 'md:left-[76px]'}`}>
+    <header className="erp-header fixed inset-x-0 top-0 z-30 h-[68px] md:left-[256px]">
       <div className="flex h-full items-center justify-between gap-4 px-4 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <button
             onClick={onToggle}
-            className="shrink-0 rounded-lg p-2 text-text-secondary transition hover:bg-bg hover:text-text-primary"
-            aria-label="Toggle sidebar"
+            className="shrink-0 rounded-lg p-2 text-text-secondary transition hover:bg-bg hover:text-text-primary md:hidden"
+            aria-label="Open navigation"
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -143,25 +142,22 @@ const MobileNav = ({ isOpen, onToggle }) => (
 )
 
 const PageHeader = ({ title, subtitle }) => (
-  <div className="mb-6 min-w-0">
+  <div className="mb-5 min-w-0">
     <h1 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">{title}</h1>
     {subtitle && <p className="mt-1 text-sm text-text-secondary">{subtitle}</p>}
   </div>
 )
 
 const MainLayout = ({ children, title, subtitle, showSidebar = true, showHeader = true }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(() => {
-    if (typeof window === 'undefined') return true
-    return window.innerWidth >= 768
-  })
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-bg">
-      {showHeader && <Header onToggle={() => setIsSidebarOpen((open) => !open)} isSidebarOpen={isSidebarOpen} />}
+      {showHeader && <Header onToggle={() => setIsSidebarOpen((open) => !open)} />}
       {showSidebar && <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen((open) => !open)} />}
 
-      <main className={`min-h-screen pt-[68px] transition-[padding] duration-300 ${showSidebar ? (isSidebarOpen ? 'md:pl-[256px]' : 'md:pl-[76px]') : ''}`}>
-        <div className="mx-auto w-full max-w-[1600px] p-4 sm:p-6 lg:p-8">
+      <main className={`min-h-screen pt-[68px] ${showSidebar ? 'md:pl-[256px]' : ''}`}>
+        <div className="mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-7">
           {title && <PageHeader title={title} subtitle={subtitle} />}
           {children}
         </div>
