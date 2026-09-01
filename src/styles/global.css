@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 /* =========================================================
    SCHOOL ERP — GLOBAL FOUNDATION
@@ -10,28 +11,23 @@
   --color-primary-dark: #04513a;
   --color-primary-light: #dff4ec;
   --color-primary-soft: #ecf8f4;
-
   --color-secondary: #6b705c;
   --color-secondary-light: #e9e9df;
   --color-accent: #d97745;
   --color-accent-light: #fbe9de;
-
   --color-bg: #f5f6f1;
   --color-bg-secondary: #eceee7;
   --color-bg-tertiary: #e3e6dd;
   --color-surface: #fbfcf9;
   --color-surface-hover: #f1f3ed;
-
   --color-text-primary: #202a25;
   --color-text-secondary: #59645e;
   --color-text-muted: #7a847e;
   --color-text-light: #a0a8a3;
   --color-heading: #18211d;
-
   --color-border: #dde1d9;
   --color-border-light: #e8ebe5;
   --color-border-dark: #c8cec5;
-
   --color-success: #16845b;
   --color-success-bg: #e2f5ec;
   --color-warning: #b7791f;
@@ -40,25 +36,20 @@
   --color-danger-bg: #fce5e5;
   --color-info: #557a6b;
   --color-info-bg: #e7f0ec;
-
   --font-heading: "Plus Jakarta Sans", Inter, ui-sans-serif, system-ui, sans-serif;
   --font-body: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif;
-
   --sidebar-width: 256px;
   --header-height: 68px;
   --content-max-width: 1600px;
-
   --shadow-xs: 0 1px 2px rgba(32, 42, 37, 0.04);
   --shadow-sm: 0 2px 8px rgba(32, 42, 37, 0.05);
   --shadow-md: 0 6px 18px rgba(32, 42, 37, 0.07);
   --shadow-lg: 0 12px 32px rgba(32, 42, 37, 0.09);
-
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-full: 9999px;
-
   --transition: 180ms ease;
   --transition-fast: 120ms ease;
 }
@@ -95,9 +86,7 @@
   --color-info-bg: var(--color-info-bg);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
-
-* ,
+*,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -212,7 +201,7 @@ textarea::placeholder {
   color: var(--color-primary-dark);
 }
 
-/* White is deliberately softened across the application. */
+/* Keep pure white minimal without breaking white text/icons. */
 .bg-white {
   background-color: var(--color-surface) !important;
 }
@@ -248,9 +237,7 @@ textarea::placeholder {
 }
 
 @media (max-width: 767px) {
-  body {
-    font-size: 13px;
-  }
+  body { font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
