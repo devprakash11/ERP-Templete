@@ -55,35 +55,35 @@
 }
 
 @theme {
-  --color-primary: var(--color-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-primary-light: var(--color-primary-light);
-  --color-primary-soft: var(--color-primary-soft);
-  --color-secondary: var(--color-secondary);
-  --color-secondary-light: var(--color-secondary-light);
-  --color-accent: var(--color-accent);
-  --color-accent-light: var(--color-accent-light);
-  --color-bg: var(--color-bg);
-  --color-bg-secondary: var(--color-bg-secondary);
-  --color-bg-tertiary: var(--color-bg-tertiary);
-  --color-surface: var(--color-surface);
-  --color-surface-hover: var(--color-surface-hover);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-muted: var(--color-text-muted);
-  --color-text-light: var(--color-text-light);
-  --color-heading: var(--color-heading);
-  --color-border: var(--color-border);
-  --color-border-light: var(--color-border-light);
-  --color-border-dark: var(--color-border-dark);
-  --color-success: var(--color-success);
-  --color-success-bg: var(--color-success-bg);
-  --color-warning: var(--color-warning);
-  --color-warning-bg: var(--color-warning-bg);
-  --color-danger: var(--color-danger);
-  --color-danger-bg: var(--color-danger-bg);
-  --color-info: var(--color-info);
-  --color-info-bg: var(--color-info-bg);
+  --color-primary: #087f5b;
+  --color-primary-hover: #066b4c;
+  --color-primary-light: #dff4ec;
+  --color-primary-soft: #ecf8f4;
+  --color-secondary: #6b705c;
+  --color-secondary-light: #e9e9df;
+  --color-accent: #d97745;
+  --color-accent-light: #fbe9de;
+  --color-bg: #f5f6f1;
+  --color-bg-secondary: #eceee7;
+  --color-bg-tertiary: #e3e6dd;
+  --color-surface: #fbfcf9;
+  --color-surface-hover: #f1f3ed;
+  --color-text-primary: #202a25;
+  --color-text-secondary: #59645e;
+  --color-text-muted: #7a847e;
+  --color-text-light: #a0a8a3;
+  --color-heading: #18211d;
+  --color-border: #dde1d9;
+  --color-border-light: #e8ebe5;
+  --color-border-dark: #c8cec5;
+  --color-success: #16845b;
+  --color-success-bg: #e2f5ec;
+  --color-warning: #b7791f;
+  --color-warning-bg: #fff3d8;
+  --color-danger: #c84a4a;
+  --color-danger-bg: #fce5e5;
+  --color-info: #557a6b;
+  --color-info-bg: #e7f0ec;
 }
 
 *,
