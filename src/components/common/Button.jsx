@@ -1,33 +1,38 @@
 import React from 'react'
 
-export const Button = ({ children, type = "button", variant = "primary", size = "md", onClick, disabled, className }) => {
-  const sizeClasses = {
-    sm: "px-3 py-1 text-sm",
-    md: "px-4 py-2 text-sm",
-    lg: "px-6 py-3 text-sm",
-  }
-
-  const variantClasses = {
-    primary: "bg-primary text-white",
-    secondary: "bg-gray-200 text-gray-900",
-    success: "bg-green-500 text-white",
-    warning: "bg-yellow-500 text-white",
-    danger: "bg-red-500 text-white",
-    outline: "border-2 border-primary text-primary bg-white hover:bg-primary/10",
-  }
-
-  const classes = `inline-flex items-center justify-center rounded-md ${sizeClasses[size] || sizeClasses.md} ${variantClasses[variant] || variantClasses.primary} ${className || ''}`
-
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={classes}
-    >
-      {children}
-    </button>
-  )
+const sizes = {
+  sm: 'px-3 py-2 text-xs',
+  md: 'px-4 py-2.5 text-sm',
+  lg: 'px-5 py-3 text-sm',
 }
 
+const variants = {
+  primary: 'erp-button-primary',
+  secondary: 'erp-button-secondary',
+  success: 'erp-button-success',
+  warning: 'erp-button-warning',
+  danger: 'erp-button-danger',
+  outline: 'erp-button-outline',
+}
+
+export const Button = ({
+  children,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  onClick,
+  disabled = false,
+  className = '',
+}) => (
+  <button
+    type={type}
+    onClick={onClick}
+    disabled={disabled}
+    className={`erp-button ${variants[variant] || variants.primary} ${sizes[size] || sizes.md} ${className}`}
+  >
+    {children}
+  </button>
+)
+
 export const Default = Button
+export default Button

@@ -1,27 +1,22 @@
 import React from 'react'
 
-export const Avatar = ({ src, name, size = "md", className }) => {
-  const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-10 h-10",
-    lg: "w-14 h-14",
-  }
-
-  return (
-    <div className={`w-full ${sizeClasses[size] || sizeClasses.md} rounded-full overflow-hidden ${className || ''}`}>
-      {src ? (
-        <img
-          src={src}
-          alt={name}
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <div className="w-full h-full flex items-center justify-center bg-primary text-white">
-          {name ? name.charAt(0).toUpperCase() : ''}
-        </div>
-      )}
-    </div>
-  )
+const sizeClasses = {
+  sm: 'h-8 w-8 text-xs',
+  md: 'h-10 w-10 text-sm',
+  lg: 'h-14 w-14 text-base',
 }
 
+export const Avatar = ({ src, name, size = 'md', className = '' }) => (
+  <div className={`shrink-0 overflow-hidden rounded-full border-2 border-surface bg-primary ${sizeClasses[size] || sizeClasses.md} ${className}`}>
+    {src ? (
+      <img src={src} alt={name || 'Avatar'} className="h-full w-full object-cover" />
+    ) : (
+      <div className="flex h-full w-full items-center justify-center font-bold text-white">
+        {name ? name.charAt(0).toUpperCase() : ''}
+      </div>
+    )}
+  </div>
+)
+
 export const Default = Avatar
+export default Avatar

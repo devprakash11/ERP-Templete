@@ -14,22 +14,17 @@ const Login = () => {
     event.preventDefault()
     setError('')
     setIsSubmitting(true)
-
     const result = await login(email.trim(), password)
-    if (result.success) {
-      navigate('/dashboard', { replace: true })
-    } else {
-      setError(result.message || 'Invalid email or password')
-    }
-
+    if (result.success) navigate('/dashboard', { replace: true })
+    else setError(result.message || 'Invalid email or password')
     setIsSubmitting(false)
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary/10 via-bg to-bg p-4">
-      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-6 shadow-xl sm:p-8">
+    <div className="erp-auth-page">
+      <div className="erp-auth-card p-6 sm:p-8">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-lg shadow-primary/25">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-lg shadow-primary/20">
             <span className="text-lg font-bold">S</span>
           </div>
           <h1 className="text-2xl font-bold text-text-primary">Welcome back</h1>
@@ -38,49 +33,23 @@ const Login = () => {
 
         <form onSubmit={onSubmit} className="space-y-5">
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-medium text-text-primary">Email</label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="admin@school.com"
-              autoComplete="email"
-              required
-              className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
-            />
+            <label htmlFor="email" className="mb-2 block text-sm font-semibold text-text-primary">Email</label>
+            <input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="admin@school.com" autoComplete="email" required className="erp-input" />
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-2 block text-sm font-medium text-text-primary">Password</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Enter your password"
-              autoComplete="current-password"
-              required
-              className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
-            />
+            <label htmlFor="password" className="mb-2 block text-sm font-semibold text-text-primary">Password</label>
+            <input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter your password" autoComplete="current-password" required className="erp-input" />
           </div>
 
-          {error && (
-            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-danger" role="alert">
-              {error}
-            </div>
-          )}
+          {error && <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-danger" role="alert">{error}</div>}
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
-          >
+          <button type="submit" disabled={isSubmitting} className="erp-button erp-button-primary w-full px-4 py-3">
             {isSubmitting ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
 
-        <div className="mt-6 rounded-xl bg-bg p-4 text-center text-xs text-text-secondary">
+        <div className="mt-6 rounded-xl border border-border bg-surface-muted p-4 text-center text-xs text-text-secondary">
           Demo credentials: <span className="font-semibold text-text-primary">admin@school.com</span> / <span className="font-semibold text-text-primary">admin123</span>
         </div>
       </div>

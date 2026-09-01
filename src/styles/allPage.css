@@ -1,0 +1,563 @@
+/*
+ * School ERP — unified application styling
+ *
+ * This file is the single component/page-level styling layer. It intentionally
+ * keeps pure white, saturated blue and heavy shadows out of the application.
+ */
+
+:root {
+  --erp-content-max: 1600px;
+  --erp-sidebar-width: 288px;
+  --erp-header-height: 68px;
+}
+
+/* ---------- Application surfaces ---------- */
+.min-h-screen,
+body {
+  background: var(--bg);
+}
+
+.bg-white {
+  background-color: var(--surface) !important;
+}
+
+.bg-gray-50,
+.bg-gray-100 {
+  background-color: var(--surface-raised) !important;
+}
+
+.bg-gray-200 {
+  background-color: var(--surface-muted) !important;
+}
+
+.bg-slate-50,
+.bg-slate-100 {
+  background-color: var(--surface-raised) !important;
+}
+
+.border-gray-100,
+.border-gray-200,
+.border-gray-300,
+.border-slate-200,
+.border-slate-300 {
+  border-color: var(--border) !important;
+}
+
+.divide-gray-100 > :not([hidden]) ~ :not([hidden]),
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--border) !important;
+}
+
+/* Existing page roots use utility classes. Keep them consistent without
+   requiring every page to carry its own stylesheet. */
+main .rounded-lg.bg-white,
+main .rounded-xl.bg-white,
+main .rounded-2xl.bg-white,
+main .rounded-lg.bg-surface,
+main .rounded-xl.bg-surface {
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+main .shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+main .shadow-md {
+  box-shadow: var(--shadow-md) !important;
+}
+
+main .shadow-lg,
+main .shadow-xl {
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ---------- Typography ---------- */
+.text-text-primary,
+.text-gray-900,
+.text-slate-900 {
+  color: var(--text-primary) !important;
+}
+
+.text-text-secondary,
+.text-gray-500,
+.text-gray-600,
+.text-slate-500,
+.text-slate-600 {
+  color: var(--text-secondary) !important;
+}
+
+.text-gray-400,
+.text-slate-400 {
+  color: var(--text-muted) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+}
+
+p,
+label,
+th,
+td {
+  line-height: 1.5;
+}
+
+/* ---------- Primary / accent migration ---------- */
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.bg-primary:hover,
+.hover\\:bg-primary:hover {
+  background-color: var(--primary-hover) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.border-primary {
+  border-color: var(--primary) !important;
+}
+
+.hover\\:text-primary:hover {
+  color: var(--primary) !important;
+}
+
+/* Legacy saturated colours are remapped to the new semantic palette. */
+.text-blue-400,
+.text-blue-500,
+.text-blue-600,
+.text-blue-700,
+.text-indigo-500,
+.text-indigo-600 {
+  color: var(--primary) !important;
+}
+
+.bg-blue-50,
+.bg-blue-100,
+.bg-indigo-50,
+.bg-indigo-100 {
+  background-color: var(--primary-soft) !important;
+}
+
+.bg-blue-500,
+.bg-blue-600,
+.bg-indigo-500,
+.bg-indigo-600 {
+  background-color: var(--primary) !important;
+}
+
+/* ---------- Common component classes ---------- */
+.erp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+
+.erp-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.erp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.erp-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.erp-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.erp-button-primary {
+  background: var(--primary);
+  color: var(--text-on-primary);
+  box-shadow: 0 6px 16px rgba(15, 118, 110, 0.16);
+}
+
+.erp-button-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.erp-button-secondary {
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+.erp-button-secondary:hover:not(:disabled) {
+  background: var(--surface-raised);
+  border-color: var(--border-strong);
+}
+
+.erp-button-success {
+  background: var(--success);
+  color: #fff;
+}
+
+.erp-button-warning {
+  background: var(--warning);
+  color: #fff;
+}
+
+.erp-button-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.erp-button-outline {
+  background: transparent;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.erp-button-outline:hover:not(:disabled) {
+  background: var(--primary-soft);
+}
+
+.erp-input,
+.erp-select,
+.erp-textarea,
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+input:not([type="checkbox"]):not([type="radio"])::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.erp-input:hover,
+.erp-select:hover,
+.erp-textarea:hover,
+input:not([type="checkbox"]):not([type="radio"]):hover,
+select:hover,
+textarea:hover {
+  border-color: var(--border-strong);
+}
+
+.erp-input:focus,
+.erp-select:focus,
+.erp-textarea:focus,
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--primary);
+}
+
+.erp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.erp-badge-primary { background: var(--primary-light); color: var(--primary-hover); }
+.erp-badge-success { background: var(--success-light); color: var(--success); }
+.erp-badge-warning { background: var(--warning-light); color: #9A5A00; }
+.erp-badge-danger { background: var(--danger-light); color: var(--danger); }
+.erp-badge-info { background: var(--info-light); color: #6D28D9; }
+.erp-badge-neutral { background: var(--surface-muted); color: var(--text-secondary); }
+
+/* ---------- Dashboard ---------- */
+.erp-dashboard {
+  display: grid;
+  gap: 24px;
+}
+
+.erp-stat-card {
+  min-height: 132px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.erp-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.erp-stat-label {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.erp-stat-value {
+  margin-top: 5px;
+  color: var(--primary);
+  font-size: clamp(1.65rem, 2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.erp-stat-trend {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.erp-progress-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-muted);
+}
+
+.erp-progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+}
+
+.erp-progress-success { background: var(--success); }
+.erp-progress-warning { background: var(--warning); }
+.erp-progress-danger { background: var(--danger); }
+
+/* ---------- Tables ---------- */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--text-primary);
+}
+
+thead {
+  background: var(--surface-muted);
+}
+
+thead th {
+  color: var(--text-secondary) !important;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+tbody tr {
+  transition: background-color 140ms ease;
+}
+
+tbody tr:hover {
+  background: var(--primary-soft);
+}
+
+tbody td {
+  border-bottom-color: var(--border) !important;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ---------- Sidebar / header ---------- */
+.erp-sidebar {
+  background: linear-gradient(180deg, var(--navy) 0%, #0D2424 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.erp-sidebar-brand {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.erp-sidebar-icon {
+  background: var(--primary);
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.28);
+}
+
+.erp-nav-item {
+  color: #B9CCC5;
+}
+
+.erp-nav-item:hover {
+  background: rgba(255, 255, 255, 0.055);
+  color: #F3FFFA;
+}
+
+.erp-nav-item-active {
+  background: var(--primary);
+  color: #F8FFFD;
+  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+}
+
+.erp-header {
+  background: rgba(255, 255, 255, 0.88);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(16, 42, 42, 0.02);
+  backdrop-filter: blur(18px);
+}
+
+.erp-header-user {
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+}
+
+/* ---------- Alerts / states ---------- */
+.bg-red-50,
+.bg-red-100 {
+  background: var(--danger-light) !important;
+}
+
+.bg-green-50,
+.bg-green-100 {
+  background: var(--success-light) !important;
+}
+
+.bg-yellow-50,
+.bg-yellow-100,
+.bg-amber-50,
+.bg-amber-100 {
+  background: var(--warning-light) !important;
+}
+
+.text-red-500,
+.text-red-600,
+.text-red-700 {
+  color: var(--danger) !important;
+}
+
+.text-green-500,
+.text-green-600,
+.text-green-700 {
+  color: var(--success) !important;
+}
+
+.text-yellow-500,
+.text-yellow-600,
+.text-yellow-700,
+.text-amber-600,
+.text-amber-700 {
+  color: #9A5A00 !important;
+}
+
+.bg-red-500,
+.bg-red-600 { background: var(--danger) !important; }
+.bg-green-500,
+.bg-green-600 { background: var(--success) !important; }
+.bg-yellow-500,
+.bg-yellow-600,
+.bg-amber-500,
+.bg-amber-600 { background: var(--warning) !important; }
+
+/* ---------- Login ---------- */
+.erp-auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(15, 118, 110, 0.10), transparent 32%),
+    radial-gradient(circle at 85% 90%, rgba(124, 58, 237, 0.06), transparent 30%),
+    var(--bg);
+}
+
+.erp-auth-card {
+  width: min(100%, 430px);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(18px);
+}
+
+/* ---------- Responsive behaviour ---------- */
+@media (max-width: 767px) {
+  :root {
+    --erp-sidebar-width: 288px;
+  }
+
+  main .p-8 {
+    padding: 20px !important;
+  }
+
+  main .p-6 {
+    padding: 16px !important;
+  }
+
+  main .p-5 {
+    padding: 16px !important;
+  }
+
+  table {
+    min-width: 620px;
+  }
+
+  .erp-card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .erp-stat-card {
+    min-height: 116px;
+    padding: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .erp-mobile-only {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
