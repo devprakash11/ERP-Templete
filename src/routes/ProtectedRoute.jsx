@@ -19,10 +19,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   return (
-    <MainLayout
-      title={children.props?.title || 'School ERP'}
-      subtitle={children.props?.subtitle || ''}
-    >
+    <MainLayout>
       {children}
     </MainLayout>
   )

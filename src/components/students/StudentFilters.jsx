@@ -4,7 +4,7 @@ export const StudentFilters = () => {
   return (
     <div className="bg-white rounded-lg p-4 shadow-sm mb-4">
       <h4 className="text-sm font-medium text-text-secondary mb-3">Filters</h4>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <select className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
           <option>All Classes</option>
           <option>Grade 1</option>

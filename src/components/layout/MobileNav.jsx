@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MobileNav = ({ isOpen, onToggle, userRole }) => {
+const MobileNav = ({ isOpen, onToggle }) => {
   const navItems = [
     { path: '/dashboard', icon: 'Home', label: 'Dashboard' },
     { path: '/students', icon: 'Users', label: 'Students' },

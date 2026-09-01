@@ -5,20 +5,9 @@ import { Button } from '../../components/common/Button'
 
 export const GatePassDashboard = () => {
   const [isScanning, setIsScanning] = useState(false)
-  const [entries, setEntries] = useState([])
+  const [entries] = useState([])
   const { isAuthenticated } = useAuth()
 
-  const handleEntry = (student) => {
-    const newEntry = {
-      id: Date.now(),
-      studentId: student.id,
-      studentName: student.name,
-      entryTime: new Date().toLocaleString(),
-      status: 'Entry',
-    }
-    setEntries((currentEntries) => [...currentEntries, newEntry])
-    alert('Entry logged successfully')
-  }
 
   return (
     <div className="w-full rounded-lg bg-white p-4 shadow-sm sm:p-6">

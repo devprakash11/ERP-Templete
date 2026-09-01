@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/common/Button'
 
 export const SubjectsPage = () => {
-  const [subjects, setSubjects] = useState([])
+  const [subjects] = useState([])
   const navigate = useNavigate()
 
   const onAddSubject = () => {
