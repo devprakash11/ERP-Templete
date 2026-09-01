@@ -1,4 +1,5 @@
-import './styles/globals.css'
+import './styles/global.css'
+import './styles/allpage.css'
 import { BrowserRouter } from 'react-router-dom'
 import mainRoutes from './routes/AppRoutes'
 
