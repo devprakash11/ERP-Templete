@@ -32,28 +32,52 @@ const navItems = [
 
 const Sidebar = ({ isOpen, onToggle }) => (
   <>
-    {isOpen && <button className="fixed inset-0 z-40 bg-black/40 md:hidden" onClick={onToggle} aria-label="Close navigation overlay" />}
-    <aside className={`erp-sidebar fixed inset-y-0 left-0 z-50 flex w-72 flex-col text-white transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+    <button
+      className={`fixed inset-0 z-40 bg-black/40 transition-opacity md:hidden ${isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+      onClick={onToggle}
+      aria-label="Close navigation overlay"
+    />
+
+    <aside
+      className={`erp-sidebar fixed inset-y-0 left-0 z-50 flex flex-col text-white transition-transform duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      aria-label="Primary navigation"
+    >
       <div className="erp-sidebar-brand flex h-[68px] shrink-0 items-center justify-between px-5">
-        <NavLink to="/dashboard" onClick={() => window.innerWidth < 768 && onToggle()} className="flex items-center gap-3">
-          <span className="erp-sidebar-icon flex h-9 w-9 items-center justify-center rounded-xl text-white"><ShieldCheck className="h-5 w-5" /></span>
-          <span className="text-lg font-bold tracking-tight text-white">School ERP</span>
+        <NavLink
+          to="/dashboard"
+          onClick={() => window.innerWidth < 768 && onToggle()}
+          className="flex min-w-0 items-center gap-3"
+        >
+          <span className="erp-sidebar-icon flex items-center justify-center rounded-xl text-white">
+            <ShieldCheck className="h-5 w-5" />
+          </span>
+          <span className="truncate text-lg font-bold tracking-tight text-white">School ERP</span>
         </NavLink>
-        <button onClick={onToggle} className="rounded-lg p-2 text-white/70 transition hover:bg-white/10 hover:text-white md:hidden" aria-label="Close sidebar"><X className="h-5 w-5" /></button>
+
+        <button
+          onClick={onToggle}
+          className="rounded-lg p-2 text-white/70 transition hover:bg-white/10 hover:text-white md:hidden"
+          aria-label="Close sidebar"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-        {navItems.map(({ path, icon: Icon, label }) => (
-          <NavLink
-            key={path}
-            to={path}
-            onClick={() => window.innerWidth < 768 && onToggle()}
-            className={({ isActive }) => `group erp-nav-item flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${isActive ? 'erp-nav-item-active' : ''}`}
-          >
-            <Icon className="h-5 w-5 shrink-0" />
-            <span className="flex-1">{label}</span>
-            <ChevronRight className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-60" />
-          </NavLink>
-        ))}
+
+      <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="ERP modules">
+        <div className="space-y-1">
+          {navItems.map(({ path, icon: Icon, label }) => (
+            <NavLink
+              key={path}
+              to={path}
+              onClick={() => window.innerWidth < 768 && onToggle()}
+              className={({ isActive }) => `group erp-nav-item flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${isActive ? 'erp-nav-item-active' : ''}`}
+            >
+              <Icon className="h-5 w-5 shrink-0" />
+              <span className="min-w-0 flex-1 truncate">{label}</span>
+              <ChevronRight className="h-4 w-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-60" />
+            </NavLink>
+          ))}
+        </div>
       </nav>
     </aside>
   </>
@@ -62,24 +86,47 @@ const Sidebar = ({ isOpen, onToggle }) => (
 const Header = ({ onToggle }) => {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
-  const handleLogout = () => { logout(); navigate('/login', { replace: true }) }
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
 
   return (
-    <header className="erp-header fixed inset-x-0 top-0 z-30 h-[68px]">
-      <div className="flex h-full items-center justify-between px-4 sm:px-6">
-        <div className="flex items-center gap-3">
-          <button onClick={onToggle} className="rounded-lg p-2 text-text-secondary transition hover:bg-bg hover:text-text-primary" aria-label="Toggle sidebar"><Menu className="h-5 w-5" /></button>
-          <div>
-            <p className="text-sm font-semibold text-text-primary">School ERP</p>
-            <p className="hidden text-xs text-text-secondary sm:block">School management system</p>
+    <header className="erp-header fixed inset-x-0 top-0 z-30 h-[68px] md:left-[256px]">
+      <div className="flex h-full items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="flex min-w-0 items-center gap-3">
+          <button
+            onClick={onToggle}
+            className="shrink-0 rounded-lg p-2 text-text-secondary transition hover:bg-bg hover:text-text-primary"
+            aria-label="Toggle sidebar"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-text-primary">School ERP</p>
+            <p className="hidden truncate text-xs text-text-secondary sm:block">School management system</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="erp-header-user hidden items-center gap-2 rounded-full px-3 py-1.5 sm:flex">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">{(user?.email?.[0] || 'A').toUpperCase()}</span>
-            <span className="max-w-40 truncate text-sm font-medium text-text-primary">{user?.email || 'Admin'}</span>
+
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="erp-header-user hidden max-w-[260px] items-center gap-2 rounded-full px-3 py-1.5 sm:flex">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
+              {(user?.email?.[0] || 'A').toUpperCase()}
+            </span>
+            <span className="max-w-[190px] truncate text-sm font-medium text-text-primary">
+              {user?.email || 'Admin'}
+            </span>
           </div>
-          <button onClick={handleLogout} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-text-secondary transition hover:bg-danger-light hover:text-danger"><LogOut className="h-4 w-4" /><span className="hidden sm:inline">Logout</span></button>
+
+          <button
+            onClick={handleLogout}
+            className="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-text-secondary transition hover:bg-danger-light hover:text-danger"
+          >
+            <LogOut className="h-4 w-4" />
+            <span className="hidden sm:inline">Logout</span>
+          </button>
         </div>
       </div>
     </header>
@@ -93,20 +140,24 @@ const MobileNav = ({ isOpen, onToggle }) => (
 )
 
 const PageHeader = ({ title, subtitle }) => (
-  <div className="mb-6">
+  <div className="mb-6 min-w-0">
     <h1 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">{title}</h1>
     {subtitle && <p className="mt-1 text-sm text-text-secondary">{subtitle}</p>}
   </div>
 )
 
 const MainLayout = ({ children, title, subtitle, showSidebar = true, showHeader = true }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(() => {
+    if (typeof window === 'undefined') return true
+    return window.innerWidth >= 768
+  })
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen overflow-x-hidden bg-bg">
       {showHeader && <Header onToggle={() => setIsSidebarOpen((open) => !open)} />}
       {showSidebar && <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen((open) => !open)} />}
-      <main className={`min-h-screen pt-[68px] transition-all duration-300 ${showSidebar && isSidebarOpen ? 'md:pl-72' : ''}`}>
+
+      <main className={`min-h-screen pt-[68px] ${showSidebar ? 'md:pl-[256px]' : ''}`}>
         <div className="mx-auto w-full max-w-[1600px] p-4 sm:p-6 lg:p-8">
           {title && <PageHeader title={title} subtitle={subtitle} />}
           {children}
