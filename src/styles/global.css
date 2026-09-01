@@ -1,10 +1,6 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
-/* =========================================================
-   SCHOOL ERP — GLOBAL FOUNDATION
-   ========================================================= */
-
 :root {
   --color-primary: #087f5b;
   --color-primary-hover: #066b4c;
@@ -15,16 +11,21 @@
   --color-secondary-light: #e9e9df;
   --color-accent: #d97745;
   --color-accent-light: #fbe9de;
+  --color-navy: #123f35;
+  --color-navy-light: #0f352d;
   --color-bg: #f5f6f1;
   --color-bg-secondary: #eceee7;
   --color-bg-tertiary: #e3e6dd;
   --color-surface: #fbfcf9;
+  --color-surface-muted: #eceee7;
+  --color-surface-raised: #e3e6dd;
   --color-surface-hover: #f1f3ed;
   --color-text-primary: #202a25;
   --color-text-secondary: #59645e;
   --color-text-muted: #7a847e;
   --color-text-light: #a0a8a3;
   --color-heading: #18211d;
+  --color-text-on-dark: #ecfdf5;
   --color-border: #dde1d9;
   --color-border-light: #e8ebe5;
   --color-border-dark: #c8cec5;
@@ -63,10 +64,14 @@
   --color-secondary-light: #e9e9df;
   --color-accent: #d97745;
   --color-accent-light: #fbe9de;
+  --color-navy: #123f35;
+  --color-navy-light: #0f352d;
   --color-bg: #f5f6f1;
   --color-bg-secondary: #eceee7;
   --color-bg-tertiary: #e3e6dd;
   --color-surface: #fbfcf9;
+  --color-surface-muted: #eceee7;
+  --color-surface-raised: #e3e6dd;
   --color-surface-hover: #f1f3ed;
   --color-text-primary: #202a25;
   --color-text-secondary: #59645e;
@@ -150,9 +155,7 @@ canvas {
   max-width: 100%;
 }
 
-img {
-  height: auto;
-}
+img { height: auto; }
 
 h1,
 h2,
@@ -160,9 +163,7 @@ h3,
 h4,
 h5,
 h6,
-p {
-  margin: 0;
-}
+p { margin: 0; }
 
 h1,
 h2,
@@ -175,9 +176,7 @@ h6 {
   line-height: 1.25;
 }
 
-p {
-  color: var(--color-text-secondary);
-}
+p { color: var(--color-text-secondary); }
 
 ul,
 ol {
@@ -187,9 +186,7 @@ ol {
 }
 
 input::placeholder,
-textarea::placeholder {
-  color: var(--color-text-light);
-}
+textarea::placeholder { color: var(--color-text-light); }
 
 :focus-visible {
   outline: 2px solid var(--color-primary);
@@ -202,9 +199,7 @@ textarea::placeholder {
 }
 
 /* Keep pure white minimal without breaking white text/icons. */
-.bg-white {
-  background-color: var(--color-surface) !important;
-}
+.bg-white { background-color: var(--color-surface) !important; }
 
 .text-primary { color: var(--color-primary); }
 .text-secondary { color: var(--color-text-secondary); }
@@ -218,18 +213,12 @@ textarea::placeholder {
   height: 7px;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg-secondary);
-}
-
+::-webkit-scrollbar-track { background: var(--color-bg-secondary); }
 ::-webkit-scrollbar-thumb {
   background: var(--color-border-dark);
   border-radius: var(--radius-full);
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-light);
-}
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-light); }
 
 * {
   scrollbar-width: thin;
