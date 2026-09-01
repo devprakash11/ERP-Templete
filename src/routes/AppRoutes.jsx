@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { MainLayout } from '../components/layout'
 import Dashboard from '../pages/dashboard/Dashboard'
 import StudentList from '../pages/students/StudentList'
 import StudentDetails from '../pages/students/StudentDetails'
@@ -61,7 +62,9 @@ const AppRoutes = () => (
         path={path}
         element={
           <ProtectedRoute>
-            <Component />
+            <MainLayout>
+              <Component />
+            </MainLayout>
           </ProtectedRoute>
         }
       />
